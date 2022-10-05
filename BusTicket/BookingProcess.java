@@ -21,7 +21,6 @@ public class BookingProcess {
 			}
 			else if(age>100) {
 				System.out.println("Age should be below 100");
-		
 			}
 			else
 			System.out.println("Enter valid age : ");
@@ -30,15 +29,17 @@ public class BookingProcess {
 	}
 	
 	public int option() {
+		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("1-Book seat\n2-cancel");
+		
+		System.out.println("1-Book seat\n2-cancel\n3-exit");
 		System.out.print("Enter the input: ");
 		
 
 		int n = 0;
 		try {
 		 n = sc.nextInt();
-		while(n < 1 || n > 2) {
+		if(n < 1 || n > 3) {
 			System.out.print("Select Correct Option : ");
 			n = sc.nextInt();
 		}
@@ -47,18 +48,19 @@ public class BookingProcess {
 			n=option();
 		}
 		return n;
-
 	}	
 	
 	
 	public void processes() {
-		boolean flag = false;
+		boolean flag = true;
+		while(flag) {
 		int n = option();
 		switch (n) {
 		case 1: 
 		      bd.availableSeat();
-		       	
-           break;
+		      flag = true;
+		      break;
+		
 		case 2: 
 			System.out.println("no of tickets wants to cancel:");
 			int cancelTickets = sc.nextInt();
@@ -66,6 +68,15 @@ public class BookingProcess {
 				String name = "";
 			    bd.cancelTicket(name, cancelTickets, bd.list);	
 			}
+			flag = true;
+			break;
+		
+		default:
+			System.out.println("Exited successfully");	
+			flag = false;
+			break;
+		
+		}
 		}
 	}
 		
@@ -78,22 +89,38 @@ public class BookingProcess {
 		BookingProcess b = new BookingProcess();
 		ArrayList<BusDetails> bus = new ArrayList<>();
 		
-		bus.add(new BusDetails("1",true,30));
-		bus.add(new BusDetails("2",false,32));
-		bus.add(new BusDetails("3",true,30));
-     	BusDetails details = new BusDetails();
+//		bus.add(new BusDetails("1",true,30));
+//		bus.add(new BusDetails("2",false,32));
+//		bus.add(new BusDetails("3",true,30));
+//     	BusDetails details = new BusDetails();
 		
 		ArrayList<UserDetails> booking = new ArrayList<>();
 		System.out.println();
 		UserDetails book = new UserDetails();
 		
 		
-		for(BusDetails u:bus) {
-			u.displayInfo();
-			
-		}
+//		for(BusDetails u:bus) {
+//			u.displayInfo();
+//			
+//		}
 
-
+//        int userinput =1;
+//        Scanner scanner = new Scanner(System.in);
+//        while(userinput==1) {
+//        	System.out.println("enter 1 to book and 2 to exit");
+//        	userinput = scanner.nextInt();
+//        	if(userinput ==1) {
+//        		BookingProcess booking1 = new BookingProcess();
+//        		for(BusDetails busItem : bus) {
+//        		if(booking1.isAvailable(userinput,busItem)) {
+////        			booking.add(booking1);bus
+//        			
+//        			
+//        		}
+//        		}
+//        	}
+ //       }
+		
  //    	Scanner sc = new Scanner(System.in);
 //		System.out.println("1-Book seat\n2-cancel");
 //		String userInput = sc.next();
@@ -112,10 +139,12 @@ public class BookingProcess {
 //        }     
 //        sc.close();
 		
-		b.processes();
+	      b.processes();
 		System.out.println("************************");
 	
 	}
+
+
 
 
 }

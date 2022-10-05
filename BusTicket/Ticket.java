@@ -6,5 +6,5 @@ import com.zoho.console.User;
 
 public interface Ticket {
 	int availableSeat();
-	void cancelTicket(String name, int can, ArrayList<User> list );
+	void cancelTicket(String name, int can, ArrayList<UserDetails> list );
 }

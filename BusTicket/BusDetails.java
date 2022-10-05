@@ -8,8 +8,27 @@ public class BusDetails implements Ticket {
 	
 	private String busNumber;
 	private boolean busAc;
-	private int seats;
-	 BusDetails(String busNumber, boolean busAc, int seats){
+	private int seats=30;
+	
+	 public String getBusNumber() {
+		return busNumber;
+	}
+	public void setBusNumber(String busNumber) {
+		this.busNumber = busNumber;
+	}
+	public boolean isBusAc() {
+		return busAc;
+	}
+	public void setBusAc(boolean busAc) {
+		this.busAc = busAc;
+	}
+	public int getSeats() {
+		return seats;
+	}
+	public void setSeats(int seats) {
+		this.seats = seats;
+	}
+	BusDetails(String busNumber, boolean busAc, int seats){
 		 this.busNumber = busNumber;
 		 this.busAc= busAc;
 		 this.seats = seats;	 
@@ -24,32 +43,32 @@ public class BusDetails implements Ticket {
     //private int seats=30;
 	ArrayList<UserDetails> list = new ArrayList<>();
 
-
 	@Override
 	public int availableSeat() {//10
 		Scanner sc = new Scanner(System.in);
-		System.out.print("how many seats you need :");
-		boolean flag = false;
+		
+//		boolean flag = false;
 		int bookSeats=0;
-		while(!flag)
-        {
+
+		 System.out.print("how many seats you need :");
 	     bookSeats = sc.nextInt();
 
 		if(seats>=bookSeats&&bookSeats>0)
 		{
 			for (int i = 1; i <= bookSeats; i++) {
 				String name ="";
-				while(!name.matches("^[A-Za-z]+$")) {
-					System.out.print("Enter user name"+i);
+				if(!name.matches("^[A-Za-z]+$")) {
+					System.out.print(i+" Enter user name");
                     name = sc.next();
 				 }
-				System.out.print("Enter user age"+i);
+				System.out.print(i+" Enter user age");
 			//	byte age = process.isAge();
-				byte age =0;
+				int age =0;
+				age=sc.nextInt();
+				System.out.print(i+" Enter user phone");
 		       String phone = "";
-				while(!phone.matches("^[6789][0-9]{9}$")) {
-					System.out.print("Enter user phone"+i);
-
+		       phone = sc.next();
+				if(!phone.matches("^[6789][0-9]{9}$")) {
 					if(phone.length()==10) {
 						phone = sc.next();
 					}
@@ -64,30 +83,32 @@ public class BusDetails implements Ticket {
 			System.out.println("Amount you need to pay for "+currentPrice+" to book tickets");
 	     	double amount = sc.nextDouble();
 			//double currentPrice = price*bookSeats;
-			System.out.println("Amount you need to pay for "+currentPrice+" to book tickets");
+//			System.out.println("Amount you need to pay for "+currentPrice+" to book tickets");
 	        // 	double amount = sc.nextDouble();
 			if(currentPrice<=amount) {
 				
 				seats = seats-bookSeats;
-				System.out.println("Your booked "+bookSeats+" seats");
-				System.out.println("Availble seats: "+seats);	
-				flag = true;
+				System.out.println("You booked "+bookSeats+" seats");
+				System.out.println("Available seats: "+seats);	
+//				flag = true;
 			}
 			else
 				System.out.println("Please pay for tickets cost : "+currentPrice);	
 		}
 		else if (bookSeats<=0) {
 			System.out.println("enter positive number to book ticket ");
+//			flag = true;
 		}
 		else
 		{
 			System.out.println("We have only "+seats+" availble seats");
+//			flag = true;
 		}
-        }
+//		sc.close();
 		return bookSeats;
 	}
 	@Override
-	public void cancelTicket(String name, int can, ArrayList<User> list) {
+	public void cancelTicket(String name, int can, ArrayList<UserDetails> list) {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Give YES if you want to cancel \nGive NO to continue journey");
@@ -111,7 +132,7 @@ public class BusDetails implements Ticket {
 			}
 			
 			if(price==0) 
-			System.out.println("money is not deducted :");
+				System.out.println("money is not deducted :");
 				else if (seats>=can&&can>=0) 
 				{
 				    seats = seats+can;
@@ -129,7 +150,6 @@ public class BusDetails implements Ticket {
 		else {
 			System.out.println("Thanks for confirmation ");
 		}
-		sc.close();
 		
 	}
 

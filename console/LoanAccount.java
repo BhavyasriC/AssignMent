@@ -7,9 +7,8 @@ import java.util.Scanner;
 import java.sql.Timestamp;
 import java.time.Instant;
 
+public class LoanAccount implements Account {
 
-
-public class AccountDetails implements Account {
 	HashMap<Timestamp, Transaction> map = new HashMap<>();
 
 	Scanner sc = new Scanner(System.in);
@@ -38,7 +37,7 @@ public class AccountDetails implements Account {
 		return "AccountDetails [accountNo=" + accountNo + ", accountbal=" + accountbal + "]";
 	}
 
-	AccountDetails() {
+	LoanAccount() {
 	}
 
 	public void balanceEnquiry(UserDetails user) {
@@ -51,7 +50,7 @@ public class AccountDetails implements Account {
 		try {
 			amt = sc.nextInt();
 			if (amt > 0 && amt < 100000) {
-				user.getAccount().setAccountbal(user.getAccount().getAccountbal() + amt);
+				user.getAccount().setAccountbal(user.getAccount().getAccountbal() - amt);
 				System.out.println("Your accountbal :" + user.getAccount().getAccountbal());
 			} else {
 				System.out.println("Invalid ammount");
@@ -62,19 +61,19 @@ public class AccountDetails implements Account {
 		}
 		Transaction transaction = new Transaction();
 		transaction.setUsername(user.getUserName());
-		transaction.setAmount(amt);
+		transaction.setAmount(-amt);
 		map.put(Timestamp.from(Instant.now()), transaction);
 		System.out.println(map);
 	}
 
 	public void withdraw(UserDetails user) {
-		
+
 		System.out.println("Enter withdraw Amount");
 		double amt = sc.nextInt();
 		try {
 			final double minibal = 1000;
-			if (user.getAccount().getAccountbal() >= amt && amt > 0) { // 15000
-				if (minibal < (user.getAccount().getAccountbal() - amt)) {
+			if (user.getAccount().getAccountbal() >= amt && amt > 0) { 
+				if (minibal < (user.getAccount().getAccountbal() + amt)) {
 					user.getAccount().setAccountbal(user.getAccount().getAccountbal() - amt);
 					System.out.println("your accountbal:" + user.getAccount().getAccountbal());
 				} else {
@@ -88,7 +87,7 @@ public class AccountDetails implements Account {
 		}
 		Transaction transaction = new Transaction();
 		transaction.setUsername(user.getUserName());
-		transaction.setAmount(-amt);
+		transaction.setAmount(amt);
 		map.put(Timestamp.from(Instant.now()), transaction);
 	}
 
